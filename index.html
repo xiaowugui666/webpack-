@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>小红包</title>
+    <link rel="stylesheet" href="css/new-year.css">
+    <!--<link rel="stylesheet" href="css/windows1.css">-->
+</head>
+<body>
+    <div class="shade">
+        <div class="red-packet">
+            <div class="photo"></div>
+            <p class="name">潘多拉官方旗舰店客服</p>
+            <p class="tip">给你发了一个红包</p>
+            <p class="remark">这里是留言内容</p>
+            <button class="new-year-but1"></button>
+            <p class="decorate"></p>
+            <p class="close"></p>
+        </div>
+    </div>
+
+
+    <!--领取红包金额-->
+    <div id="receive1" class="win1">
+        <div class="winBody">
+            <div class="photo"></div>
+            <p class="names">潘多拉官方旗舰店客服</p>
+            <p class="tips">这里是留言内容</p>
+            <p style="text-align: center;margin-top: 0.2rem;"><span class="money">50.24</span><span>元</span></p>
+            <p class="desc">已存入零钱，可直接转账</p>
+        </div>
+    </div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/setRem.js"></script>
+<script type="text/javascript">
+
+    $(".new-year-a1").click(function(){
+        $('#rules').show();
+    });
+    $(".rules-but1").click(function(){
+        $('#rules').hide();
+    });
+
+
+    $(".receive1-but1").click(function(){
+        $('#receive1').hide();
+        location.href ="home_page1(我的红包页).html";
+    });
+
+    $(".new-year-but1").click(function(){
+        $(".new-year-but1").addClass("main_jb2");
+        setTimeout(function() {
+            $(".new-year-but1").removeClass("main_jb2");
+            $('#receive1').show();
+        }, 1000);
+
+    });
+</script>
+</body>
+</html>
