@@ -40,7 +40,7 @@
     var id = getParam('id')
 
     $.ajax({
-        url:'/public/packets/'+id,
+        url:'https://retail-develop.51zan.com/public/packets/'+id,
         type:'get',
         dataType:'json',
         success:function(data){
@@ -70,7 +70,7 @@
     $(".new-year-but1").click(function(){
                
         $.ajax({
-            url:'/public/mps/auth',
+            url:'https://retail-develop.51zan.com/public/mps/auth',
             type:'get',
             data:{
                 app_id:app_id
@@ -79,7 +79,7 @@
             success:function(res){
 
                 $.ajax({
-                    url:'/public/packets/'+id+'/open',
+                    url:'https://retail-develop.51zan.com/public/packets/'+id+'/open',
                     type:'get',
                     dataType:'json',
                     success:function(data){
