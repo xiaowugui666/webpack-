@@ -48,7 +48,7 @@
             $('.photo').eq(0).html(response.sender_wechat_avatar_url);
             $('.name').eq(0).html(response.sender_wechat_nickname);
             $('.remark,.tips').html(response.messages);
-            var m = float(response.amount/100) .toFixed(2);   
+            var m = (response.amount/100).toFixed(2);   
 
             if(response.status==1){
                 $('.photo').eq(1).html(response.sender_wechat_avatar_url)
