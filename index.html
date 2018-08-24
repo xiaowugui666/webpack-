@@ -42,7 +42,7 @@
     $.ajax({
         url:'https://retail-develop.51zan.com/public/packets/'+id,
         type:'get',
-        dataType:'json',
+        dataType:'jsonp',
         success:function(data){
             var response = data.data
             $('.photo').eq(0).html(response.sender_wechat_avatar_url);
@@ -75,13 +75,13 @@
             data:{
                 app_id:app_id
             },
-            dataType:'json',
+            dataType:'jsonp',
             success:function(res){
 
                 $.ajax({
                     url:'https://retail-develop.51zan.com/public/packets/'+id+'/open',
                     type:'get',
-                    dataType:'json',
+                    dataType:'jsonp',
                     success:function(data){
                          if( data.statusCode >= 200 && data.statusCode<300 ){
 
