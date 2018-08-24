@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>小红包</title>
+    <link rel="stylesheet" href="css/redpacket.css">
+</head>
+<body>
+    <div class="shade">
+        <div class="red-packet">
+            <div class="photo"></div>
+            <p class="name"></p>
+            <p class="tip">给你发了一个红包</p>
+            <p class="remark"></p>
+            <button class="new-year-but1"></button>
+            <p class="decorate"></p>
+        </div>
+    </div>
+
+
+    <!--领取红包金额-->
+    <div id="receive1" class="win1">
+        <div class="winBody">
+            <div class="photo"></div>
+            <p class="names"></p>
+            <p class="tips"></p>
+            <p style="text-align: center;margin-top: 0.2rem;"><span class="money"></span><span>元</span></p>
+            <p class="desc">已存入零钱，可直接转账</p>
+        </div>
+    </div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/setRem.js"></script>
+<script type="text/javascript">
+    var app_id = getParam('app_id')
+    var id = getParam('id')
+
+    $.ajax({
+        url:'/public/packets/'+id,
+        type:'get',
+        dataType:'json',
+        success:function(data){
+            var response = data.data
+            $('.photo').eq(0).html(response.sender_wechat_avatar_url);
+            $('.name').eq(0).html(response.sender_wechat_nickname);
+            $('.remark,.tips').html(response.messages);
+            var m = float(amount/100) .toFixed(2);   
+
+            if(response.status==1){
+                $('.photo').eq(1).html(response.sender_wechat_avatar_url)
+                $('.name').eq(1).html(response.sender_wechat_nickname)
+                $('.money').html(m)
+                $('.new-year-but1').show()
+            } else if(response.status==2){
+                $('.remark').html('红包已领取')
+            } else if(response.status==3){
+                $('.remark').html('24小时内未领取，红包已失效请联系商家重新领取')
+            } else if(response.status==4){
+                $('.remark').html('  红包领取失败请联系商家重新领取')
+            }
+        },
+        error:function(){
+            console.log('请稍后重试！');
+        }
+    })
+    $(".new-year-but1").click(function(){
+               
+        $.ajax({
+            url:'/public/mps/auth',
+            type:'get',
+            data:{
+                app_id:app_id
+            },
+            dataType:'json',
+            success:function(res){
+
+                $.ajax({
+                    url:'/public/packets/'+id+'/open',
+                    type:'get',
+                    dataType:'json',
+                    success:function(data){
+                         if( data.statusCode >= 200 && data.statusCode<300 ){
+
+                            $(".new-year-but1").addClass("main_jb2");
+                            setTimeout(function() {
+                                $(".new-year-but1").removeClass("main_jb2");
+                                $('#receive1').show();
+                            }, 1000);
+                         }   
+                    }
+                })
+            }
+        })
+
+    });
+
+    function getParam(name) {
+        var paramUrl = window.location.search.substr(1);
+        var paramStrs = paramUrl.split('&');
+        var params = {};
+        for (var index = 0; index < paramStrs.length; index++) {
+            params[paramStrs[index].split('=')[0]] = decodeURI(paramStrs[index].split('=')[1]);
+        }
+        return params[name];
+    }
+
+</script>
+</body>
+</html>

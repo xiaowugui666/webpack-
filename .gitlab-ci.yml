@@ -1,0 +1,24 @@
+image: ccr.ccs.tencentyun.com/huzi/alpine-node:8
+
+variables:
+  SSH_OPTS: "-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+  RSYNC_OPTS: "-r --exclude=.git --delete-after --force --delay-updates"
+
+stages:
+  - deploy
+
+deploy:develop:
+  stage: deploy
+  script:
+    - ls -al
+    - rsync $RSYNC_OPTS -e 'ssh -o UserKnownHostsFile=/dev/null  -o StrictHostKeyChecking=no' ./ ${DEVELOP_HOST}:/srv/static/red-packet/
+  only:
+    - develop
+
+deploy:test:
+  stage: deploy
+  script:
+    - ls -al
+    - rsync $RSYNC_OPTS -e 'ssh -o UserKnownHostsFile=/dev/null  -o StrictHostKeyChecking=no' ./ ${TEST_HOST}:/srv/static/red-packet/
+  only:
+    - release
