@@ -7,7 +7,7 @@ deploy:develop:
   stage: deploy
   script:
     - ls -al
-    - rsync -r --delete-after --force --delay-updates -e 'ssh -o UserKnownHostsFile=/dev/null  -o StrictHostKeyChecking=no' ./ ${DEVELOP_HOST}:/srv/static/red-packet/
+    - rsync -r --exclude=.git --delete-after --force --delay-updates -e 'ssh -o UserKnownHostsFile=/dev/null  -o StrictHostKeyChecking=no' ./ ${DEVELOP_HOST}:/srv/static/red-packet/
   only:
     - develop
 
@@ -15,6 +15,6 @@ deploy:test:
   stage: deploy
   script:
     - ls -al
-    - rsync -r --delete-after --force --delay-updates -e 'ssh -o UserKnownHostsFile=/dev/null  -o StrictHostKeyChecking=no' ./ ${TEST_HOST}:/srv/static/red-packet/
+    - rsync -r --exclude=.git --delete-after --force --delay-updates -e 'ssh -o UserKnownHostsFile=/dev/null  -o StrictHostKeyChecking=no' ./ ${TEST_HOST}:/srv/static/red-packet/
   only:
     - release
