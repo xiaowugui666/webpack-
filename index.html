@@ -67,21 +67,24 @@
             console.log('请稍后重试！');
         }
     })
-    $(".new-year-but1").click(function(){
+    // $(".new-year-but1").click(function(){
                
-        $.ajax({
-            url:'https://retail-develop.51zan.com/public/mps/auth',
-            type:'get',
-            data:{
-                app_id:app_id
-            },
-            dataType:'json',
-            success:function(res){
+    //     $.ajax({
+    //         url:'https://retail-develop.51zan.com/public/mps/auth',
+    //         type:'get',
+    //         data:{
+    //             app_id:app_id
+    //         },
+    //         dataType:'json',
+    //         success:function(res){
 
                 $.ajax({
                     url:'https://retail-develop.51zan.com/public/packets/'+id+'/open',
                     type:'get',
                     dataType:'json',
+                    data:{
+                        open_id:'oWLGs0rm9ONxIjsHq7dgPU3_OCZY'
+                    },
                     success:function(data){
                          if( data.statusCode >= 200 && data.statusCode<300 ){
 
@@ -93,10 +96,10 @@
                          }   
                     }
                 })
-            }
-        })
+    //         }
+    //     })
 
-    });
+    // });
 
     function getParam(name) {
         var paramUrl = window.location.search.substr(1);
