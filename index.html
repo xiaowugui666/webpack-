@@ -40,7 +40,7 @@
     var id = getParam('id')
 
     $.ajax({
-        url:'/public/packets/'+id,
+        url:'https://retail-develop.51zan.com/public/packets/'+id,
         type:'get',
         dataType:'json',
         success:function(data){
@@ -48,7 +48,7 @@
             $('.photo').eq(0).html(response.sender_wechat_avatar_url);
             $('.name').eq(0).html(response.sender_wechat_nickname);
             $('.remark,.tips').html(response.messages);
-            var m = float(amount/100) .toFixed(2);   
+            var m = (response.amount/100).toFixed(2);   
 
             if(response.status==1){
                 $('.photo').eq(1).html(response.sender_wechat_avatar_url)
@@ -67,21 +67,24 @@
             console.log('请稍后重试！');
         }
     })
-    $(".new-year-but1").click(function(){
+    // $(".new-year-but1").click(function(){
                
-        $.ajax({
-            url:'/public/mps/auth',
-            type:'get',
-            data:{
-                app_id:app_id
-            },
-            dataType:'json',
-            success:function(res){
+    //     $.ajax({
+    //         url:'https://retail-develop.51zan.com/public/mps/auth',
+    //         type:'get',
+    //         data:{
+    //             app_id:app_id
+    //         },
+    //         dataType:'json',
+    //         success:function(res){
 
                 $.ajax({
-                    url:'/public/packets/'+id+'/open',
+                    url:'https://retail-develop.51zan.com/public/packets/'+id+'/open',
                     type:'get',
                     dataType:'json',
+                    data:{
+                        open_id:'oWLGs0rm9ONxIjsHq7dgPU3_OCZY'
+                    },
                     success:function(data){
                          if( data.statusCode >= 200 && data.statusCode<300 ){
 
@@ -93,10 +96,10 @@
                          }   
                     }
                 })
-            }
-        })
+    //         }
+    //     })
 
-    });
+    // });
 
     function getParam(name) {
         var paramUrl = window.location.search.substr(1);
