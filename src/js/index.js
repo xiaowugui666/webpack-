@@ -59,8 +59,7 @@ const load = function(){
                     open_id: open_id
                 },
                 success:function(data){
-                    if( data.statusCode >= 200 && data.statusCode<300 ){
-
+                    if( data.meta.code == 0 ){
                         $(".new-year-but1").addClass("main_jb2");
                         setTimeout(function() {
                             $(".new-year-but1").removeClass("main_jb2");
