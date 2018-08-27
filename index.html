@@ -36,6 +36,7 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/setRem.js"></script>
 <script type="text/javascript">
+
     var app_id = getParam('app_id')
     var id = getParam('id')
 
@@ -67,16 +68,15 @@
             console.log('请稍后重试！');
         }
     })
-    // $(".new-year-but1").click(function(){
-               
-    //     $.ajax({
-    //         url:'https://retail-develop.51zan.com/public/mps/auth',
-    //         type:'get',
-    //         data:{
-    //             app_id:app_id
-    //         },
-    //         dataType:'json',
-    //         success:function(res){
+    $(".new-year-but1").click(function(){              
+        $.ajax({
+            url:'https://retail-develop.51zan.com/public/mps/auth',
+            type:'get',
+            data:{
+                app_id:app_id
+            },
+            dataType:'json',
+            success:function(res){
 
                 $.ajax({
                     url:'https://retail-develop.51zan.com/public/packets/'+id+'/open',
@@ -96,10 +96,9 @@
                          }   
                     }
                 })
-    //         }
-    //     })
-
-    // });
+            }
+        })
+    });
 
     function getParam(name) {
         var paramUrl = window.location.search.substr(1);
