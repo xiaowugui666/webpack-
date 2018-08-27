@@ -24,8 +24,7 @@ const isProduction = process.env.PRODUCTION_ENV
 module.exports = {
     
     entry: {
-        index:'./src/js/index.js',
-        transfer:'./src/js/transfer.js'
+        index:'./src/js/index.js'
     },
     output: {
       filename: 'js/[name].[chunkhash].js',
@@ -41,7 +40,6 @@ module.exports = {
             'HUZAN_ENV': JSON.stringify(process.env.HUZAN_ENV),
         }),
         new HtmlWebpackPlugin(getHtmlConfig('index', { inject: 'head'})),
-        new HtmlWebpackPlugin(getHtmlConfig('transfer', { inject: 'head'})),
         new copyWebpackPlugin([{
             from: __dirname + '/src/assets',
             to: './assets'
