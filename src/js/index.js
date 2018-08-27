@@ -40,32 +40,33 @@ const load = function(){
             }
         })
         $(".new-year-but1").click(function(){
+            // $.ajax({
+            //     url:`${config.apiHost}/public/mps/auth`,
+            //     type:'get',
+            //     data:{
+            //         app_id: app_id
+            //     },
+            //     dataType:'json',
+            //     success:function(res){
+                    
+            //     }
+            // })
             $.ajax({
-                url:`${config.apiHost}/public/mps/auth`,
+                url:`${config.apiHost}/public/packets/${id}/open`,
                 type:'get',
-                data:{
-                    app_id: app_id
-                },
                 dataType:'json',
-                success:function(res){
-                    $.ajax({
-                        url:`${config.apiHost}/public/packets/${id}/open`,
-                        type:'get',
-                        dataType:'json',
-                        data:{
-                            open_id: open_id
-                        },
-                        success:function(data){
-                            if( data.statusCode >= 200 && data.statusCode<300 ){
+                data:{
+                    open_id: open_id
+                },
+                success:function(data){
+                    if( data.statusCode >= 200 && data.statusCode<300 ){
 
-                                $(".new-year-but1").addClass("main_jb2");
-                                setTimeout(function() {
-                                    $(".new-year-but1").removeClass("main_jb2");
-                                    $('#receive1').show();
-                                }, 1000);
-                            }
-                        }
-                    })
+                        $(".new-year-but1").addClass("main_jb2");
+                        setTimeout(function() {
+                            $(".new-year-but1").removeClass("main_jb2");
+                            $('#receive1').show();
+                        }, 1000);
+                    }
                 }
             })
         });
