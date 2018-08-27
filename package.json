@@ -1,0 +1,31 @@
+{
+  "name": "red-packet-frontend",
+  "version": "1.0.0",
+  "description": "小红包二维码手机页面",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env HUZAN_ENV=development webpack-dev-server --open",
+    "build": "cross-env HUZAN_ENV=production PRODUCTION_ENV=true webpack",
+    "build:develop": "cross-env HUZAN_ENV=production_develop PRODUCTION_ENV=true webpack",
+    "build:master": "cross-env HUZAN_ENV=production_master PRODUCTION_ENV=true webpack",
+    "build:test": "cross-env HUZAN_ENV=production_test PRODUCTION_ENV=true webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.51zan.cn/retail/red-packet-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.22.1",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.6",
+    "copy-webpack-plugin": "^4.5.2"
+  }
+}

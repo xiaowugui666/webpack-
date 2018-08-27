@@ -1,48 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="renderer" content="webkit">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
-    <title>小红包</title>
-    <link rel="stylesheet" href="css/redpacket.css">
-</head>
-<body>
-    <div class="shade">
-        <div class="red-packet">
-            <div class="photo"></div>
-            <p class="name"></p>
-            <p class="tip">给你发了一个红包</p>
-            <p class="remark"></p>
-            <button class="new-year-but1"></button>
-            <p class="decorate"></p>
-        </div>
-    </div>
+import config from '../config'
+import setRem from './setRem'
 
 
-    <!--领取红包金额-->
-    <div id="receive1" class="win1">
-        <div class="winBody">
-            <div class="photo"></div>
-            <p class="names"></p>
-            <p class="tips"></p>
-            <p style="text-align: center;margin-top: 0.2rem;"><span class="money"></span><span>元</span></p>
-            <p class="desc">已存入零钱，可直接转账</p>
-        </div>
-    </div>
-
-<script src="js/jquery.min.js"></script>
-<script src="js/setRem.js"></script>
-<script type="text/javascript">
-
+const load = function(){
     // var app_id = getParam('app_id')
     // var id = getParam('id')
     var app_id = oWLGs0rm9ONxIjsHq7dgPU3_OCZY
     var id = 6
     $.ajax({
-        url:'https://retail-develop.51zan.com/public/packets/'+id,
+        url:`${config.apiHost}/public/packets/${id}`,
         type:'get',
         dataType:'json',
         success:function(data){
@@ -73,16 +39,15 @@
     })
     $(".new-year-but1").click(function(){              
         $.ajax({
-            url:'https://retail-develop.51zan.com/public/mps/auth',
+            url:`${config.apiHost}/public/mps/auth`,
             type:'get',
             data:{
                 app_id:app_id
             },
             dataType:'json',
             success:function(res){
-
                 $.ajax({
-                    url:'https://retail-develop.51zan.com/public/packets/'+id+'/open',
+                    url:`${config.apiHost}/public/packets/${id}/open`,
                     type:'get',
                     dataType:'json',
                     data:{
@@ -112,7 +77,10 @@
         }
         return params[name];
     }
+}
 
-</script>
-</body>
-</html>
+
+$(function(){
+    setRem()
+    load()
+})
