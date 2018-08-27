@@ -1,0 +1,26 @@
+# dependencies
+/node_modules
+
+# production
+/dist
+
+# misc
+.DS_Store
+npm-debug.log*
+
+# umi
+.umi
+.umi-production
+
+.vscode
+.project
+.idea
+
+package-lock.json
+.vscode/settings.json
+
+#yarn.lock
+yarn-error.log
+
+#gitlab-ci
+#.gitlab-ci.yml
