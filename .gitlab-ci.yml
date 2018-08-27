@@ -5,20 +5,56 @@ variables:
   RSYNC_OPTS: "-r --exclude=.git --delete-after --force --delay-updates"
 
 stages:
+  - build
   - deploy
+
+.cache: &cache
+  key: "${CI_PROJECT_PATH}-${CI_COMMIT_REF_SLUG}"
+  paths:
+    - node_modules/
+
+build:develop:
+  stage: build
+  cache:
+      <<: *cache
+  script:
+    - yarn config set sass-binary-site http://npm.taobao.org/mirrors/node-sass
+    - yarn install
+    - npm run build:develop
+  artifacts:
+    paths:
+      - dist/
+  only:
+    - develop
+
+build:test:
+  stage: build
+  cache:
+      <<: *cache
+  script:
+    - yarn config set sass-binary-site http://npm.taobao.org/mirrors/node-sass
+    - yarn install
+    - npm run build:test
+  artifacts:
+    paths:
+      - dist/
+  only:
+    - release
 
 deploy:develop:
   stage: deploy
+  variables:
+    GIT_STRATEGY: none
   script:
-    - ls -al
-    - rsync $RSYNC_OPTS -e 'ssh -o UserKnownHostsFile=/dev/null  -o StrictHostKeyChecking=no' ./ ${DEVELOP_HOST}:/srv/static/red-packet/
+    - rsync $RSYNC_OPTS -e "ssh $SSH_OPTS" ./dist/ ${DEVELOP_HOST}:/srv/static/red-packet/
   only:
     - develop
 
 deploy:test:
   stage: deploy
+  variables:
+    GIT_STRATEGY: none
   script:
-    - ls -al
-    - rsync $RSYNC_OPTS -e 'ssh -o UserKnownHostsFile=/dev/null  -o StrictHostKeyChecking=no' ./ ${TEST_HOST}:/srv/static/red-packet/
+    - rsync $RSYNC_OPTS -e "ssh $SSH_OPTS" ./dist/ ${TEST_HOST}:/srv/static/red-packet/
   only:
     - release
