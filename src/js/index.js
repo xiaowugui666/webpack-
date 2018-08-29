@@ -18,7 +18,6 @@ const load = function(){
                     $('.name').eq(0).html(response.sender_wechat_nickname);
                     $('.remark,.tips').html(response.messages);
                     var m = (response.amount/100).toFixed(2);
-
                     if(response.status==1){
                         $('.photo').eq(1).html(response.sender_wechat_avatar_url)
                         $('.name').eq(1).html(response.sender_wechat_nickname)
@@ -46,12 +45,15 @@ const load = function(){
                     open_id: open_id
                 },
                 success:function(data){
-                    if( data.meta.code == 0 ){
+                    if( data.meta.code == 200 ){
                         $(".new-year-but1").addClass("main_jb2");
                         setTimeout(function() {
                             $(".new-year-but1").removeClass("main_jb2");
                             $('#receive1').show();
                         }, 1000);
+                    }else{
+                        $('.new-year-but1').hide()
+                        $('.remark').html(data.meta.messages)
                     }
                 }
             })
