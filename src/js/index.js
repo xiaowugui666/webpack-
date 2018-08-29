@@ -1,72 +1,65 @@
 import config from '../config'
 import setRem from './setRem'
 
-
 const load = function(){
-    // var app_id = getParam('app_id')
-    // var id = getParam('id')
-    var app_id = oWLGs0rm9ONxIjsHq7dgPU3_OCZY
-    var id = 6
-    $.ajax({
-        url:`${config.apiHost}/public/packets/${id}`,
-        type:'get',
-        dataType:'json',
-        success:function(data){
-            var response = data.data
-            if(response){
-                $('.photo').eq(0).html(response.sender_wechat_avatar_url);
-                $('.name').eq(0).html(response.sender_wechat_nickname);
-                $('.remark,.tips').html(response.messages);
-                var m = (response.amount/100).toFixed(2);   
-
-                if(response.status==1){
-                    $('.photo').eq(1).html(response.sender_wechat_avatar_url)
-                    $('.name').eq(1).html(response.sender_wechat_nickname)
-                    $('.money').html(m)
-                    $('.new-year-but1').show()
-                } else if(response.status==2){
-                    $('.remark').html('红包已领取')
-                } else if(response.status==3){
-                    $('.remark').html('24小时内未领取，红包已失效请联系商家重新领取')
-                } else if(response.status==4){
-                    $('.remark').html('  红包领取失败请联系商家重新领取')
-                }
-            }
-        },
-        error:function(){
-            console.log('请稍后重试！');
-        }
-    })
-    $(".new-year-but1").click(function(){              
+    var app_id = getParam('app_id')
+    var id = getParam('id')
+    var open_id = getParam('open_id')
+    var host = location.host
+    if( app_id && id && open_id){
         $.ajax({
-            url:`${config.apiHost}/public/mps/auth`,
+            url:`${config.apiHost}/public/packets/${id}`,
             type:'get',
-            data:{
-                app_id:app_id
-            },
             dataType:'json',
-            success:function(res){
-                $.ajax({
-                    url:`${config.apiHost}/public/packets/${id}/open`,
-                    type:'get',
-                    dataType:'json',
-                    data:{
-                        open_id:'oWLGs0rm9ONxIjsHq7dgPU3_OCZY'
-                    },
-                    success:function(data){
-                         if( data.statusCode >= 200 && data.statusCode<300 ){
+            success:function(data){
+                var response = data.data
+                if(response){
+                    $('.photo').eq(0).html(response.sender_wechat_avatar_url);
+                    $('.name').eq(0).html(response.sender_wechat_nickname);
+                    $('.remark,.tips').html(response.messages);
+                    var m = (response.amount/100).toFixed(2);
 
-                            $(".new-year-but1").addClass("main_jb2");
-                            setTimeout(function() {
-                                $(".new-year-but1").removeClass("main_jb2");
-                                $('#receive1').show();
-                            }, 1000);
-                         }   
+                    if(response.status==1){
+                        $('.photo').eq(1).html(response.sender_wechat_avatar_url)
+                        $('.name').eq(1).html(response.sender_wechat_nickname)
+                        $('.money').html(m)
+                        $('.new-year-but1').show()
+                    } else if(response.status==2){
+                        $('.remark').html('红包已领取')
+                    } else if(response.status==3){
+                        $('.remark').html('24小时内未领取，红包已失效请联系商家重新领取')
+                    } else if(response.status==4){
+                        $('.remark').html('  红包领取失败请联系商家重新领取')
                     }
-                })
+                }
+            },
+            error:function(){
+                console.log('请稍后重试！');
             }
         })
-    });
+        $(".new-year-but1").click(function(){
+            $.ajax({
+                url:`${config.apiHost}/public/packets/${id}/open`,
+                type:'get',
+                dataType:'json',
+                data:{
+                    open_id: open_id
+                },
+                success:function(data){
+                    if( data.meta.code == 0 ){
+                        $(".new-year-but1").addClass("main_jb2");
+                        setTimeout(function() {
+                            $(".new-year-but1").removeClass("main_jb2");
+                            $('#receive1').show();
+                        }, 1000);
+                    }
+                }
+            })
+        });
+    }
+    else {
+        window.location.href= 'https://retail.51zan.com/public/mps/auth?app_id='+app_id+'&redirect_uri='+encodeURIComponent("https://"+host+"/red-packet/index.html?id="+id)
+    }
 
     function getParam(name) {
         var paramUrl = window.location.search.substr(1);
@@ -78,7 +71,6 @@ const load = function(){
         return params[name];
     }
 }
-
 
 $(function(){
     setRem()
