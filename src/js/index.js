@@ -14,12 +14,18 @@ const load = function(){
             success:function(data){
                 var response = data.data
                 if(response){
-                    $('.photo').eq(0).html(response.sender_wechat_avatar_url);
+                    $('.photo').eq(0).css({
+                        "background":'url('+response.sender_wechat_avatar_url+') no-repeat center',
+                        "background-size":'100% 100%'
+                    });
                     $('.name').eq(0).html(response.sender_wechat_nickname);
                     $('.remark,.tips').html(response.messages);
                     var m = (response.amount/100).toFixed(2);
                     if(response.status==1){
-                        $('.photo').eq(1).html(response.sender_wechat_avatar_url)
+                        $('.photo').eq(1).css({
+                            "background":'url('+response.sender_wechat_avatar_url+') no-repeat center',
+                            "background-size":'100% 100%'
+                        });
                         $('.name').eq(1).html(response.sender_wechat_nickname)
                         $('.money').html(m)
                         $('.new-year-but1').show()
