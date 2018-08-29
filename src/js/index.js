@@ -1,13 +1,11 @@
 import config from '../config'
 import setRem from './setRem'
 
-
 const load = function(){
     var app_id = getParam('app_id')
     var id = getParam('id')
     var open_id = getParam('open_id')
     var host = location.host
-    console.log(host)
     if( app_id && id && open_id){
         $.ajax({
             url:`${config.apiHost}/public/packets/${id}`,
@@ -40,17 +38,6 @@ const load = function(){
             }
         })
         $(".new-year-but1").click(function(){
-            // $.ajax({
-            //     url:`${config.apiHost}/public/mps/auth`,
-            //     type:'get',
-            //     data:{
-            //         app_id: app_id
-            //     },
-            //     dataType:'json',
-            //     success:function(res){
-                    
-            //     }
-            // })
             $.ajax({
                 url:`${config.apiHost}/public/packets/${id}/open`,
                 type:'get',
@@ -71,7 +58,7 @@ const load = function(){
         });
     }
     else {
-        window.location.href= `https://retail.51zan.com/public/mps/auth?app_id=${app_id}&redirect_uri=https://${host}/red-packet/index.html?id=${id}`
+        window.location.href= 'https://retail.51zan.com/public/mps/auth?app_id='+app_id+'&redirect_uri='+encodeURIComponent("https://"+host+"/red-packet/index.html?id="+id)
     }
 
     function getParam(name) {
@@ -86,7 +73,6 @@ const load = function(){
 }
 
 $(function(){
-    console.log(location)
     setRem()
     load()
 })
