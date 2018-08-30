@@ -59,7 +59,7 @@ const load = function(){
                         }, 1000);
                     }else{
                         $('.new-year-but1').hide()
-                        $('.remark').html(data.meta.messages)
+                        $('.remark').html(data.meta.message)
                     }
                 }
             })
