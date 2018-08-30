@@ -7,6 +7,8 @@ const load = function(){
     var nick_name = getParam('nick_name')
     var haveOpenId = location.hash.indexOf('open_id')> -1 ? true : false
     var host = location.host
+    console.log(haveOpenId);
+    return;
     // window.location.href= '/red-packet/transfer.html?app_id='+app_id+'&id='+id
     if(haveOpenId){
         var open_id = getParam('open_id')
