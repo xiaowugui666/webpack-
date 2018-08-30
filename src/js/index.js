@@ -10,7 +10,7 @@ const load = function(){
     var open_id = getParam('open_id')
     // window.location.href= '/red-packet/transfer.html?app_id='+app_id+'&id='+id
     if(open_id){
-        if(open_id == ''){
+        if(open_id){
             $.ajax({
                 url:`${config.apiHost}/public/packets/${id}`,
                 type:'get',
