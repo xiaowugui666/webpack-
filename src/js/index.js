@@ -5,6 +5,7 @@ const load = function(){
     var app_id = getParam('app_id')
     var id = getParam('id')
     var open_id = getParam('open_id')
+    var nick_name = getParam('nick_name')
     var host = location.host
     if( app_id && id && open_id){
         $.ajax({
@@ -34,8 +35,9 @@ const load = function(){
                     } else if(response.status==3){
                         $('.remark').html('24小时内未领取，红包已失效请联系商家重新领取')
                     } else if(response.status==4){
-                        $('.remark').html('  红包领取失败请联系商家重新领取')
+                        $('.remark').html('红包领取失败请联系商家重新领取')
                     }
+
                 }
             },
             error:function(){
@@ -48,7 +50,8 @@ const load = function(){
                 type:'get',
                 dataType:'json',
                 data:{
-                    open_id: open_id
+                    open_id: open_id,
+                    nick_name:nick_name
                 },
                 success:function(data){
                     if( data.meta.code == 200 ){
@@ -66,7 +69,7 @@ const load = function(){
         });
     }
     else {
-        window.location.href= 'https://retail.51zan.com/public/mps/auth?app_id='+app_id+'&redirect_uri='+encodeURIComponent("https://"+host+"/red-packet/index.html?id="+id)
+        window.location.href= 'https://retail.51zan.com/public/mps/auth?scope=snsapi_userinfo&app_id='+app_id+'&redirect_uri='+encodeURIComponent("https://"+host+"/red-packet/index.html?id="+id)
     }
 
     function getParam(name) {
