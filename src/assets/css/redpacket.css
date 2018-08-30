@@ -57,6 +57,9 @@ html,body{width:100%; height:100%; overflow:hidden;font-family:"microsoft yahei"
     font-size: 20px;
     color: #FBDFB3;
     line-height: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 15%;
     margin-top:0.5rem;
 }
 .red-packet .decorate{
@@ -115,6 +118,9 @@ html,body{width:100%; height:100%; overflow:hidden;font-family:"microsoft yahei"
     color: #999999;
     line-height: 14px;
     margin-top: 0.1rem;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 15%;
     text-align: center;
 }
 
