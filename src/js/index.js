@@ -47,29 +47,6 @@ const load = function(){
                     console.log('请稍后重试！');
                 }
             })
-            $(".new-year-but1").click(function(){
-                $.ajax({
-                    url:`${config.apiHost}/public/packets/${id}/open`,
-                    type:'get',
-                    dataType:'json',
-                    data:{
-                        open_id: open_id,
-                        nick_name:nick_name
-                    },
-                    success:function(data){
-                        if( data.meta.code == 200 ){
-                            $(".new-year-but1").addClass("main_jb2");
-                            setTimeout(function() {
-                                $(".new-year-but1").removeClass("main_jb2");
-                                $('#receive1').show();
-                            }, 1000);
-                        }else{
-                            $('.new-year-but1').hide()
-                            $('.remark').html(data.meta.message)
-                        }
-                    }
-                })
-            });
         }else{
             alert('未授权')
         }
@@ -78,6 +55,29 @@ const load = function(){
         window.location.href= 'https://retail.51zan.com/public/mps/auth?scope=snsapi_userinfo&app_id='+app_id+'&redirect_uri='+encodeURIComponent("https://"+host+"/red-packet/index.html?id="+id)
     }
 
+    $(".new-year-but1").click(function(){
+        $.ajax({
+            url:`${config.apiHost}/public/packets/${id}/open`,
+            type:'get',
+            dataType:'json',
+            data:{
+                open_id: open_id,
+                nick_name:nick_name
+            },
+            success:function(data){
+                if( data.meta.code == 200 ){
+                    $(".new-year-but1").addClass("main_jb2");
+                    setTimeout(function() {
+                        $(".new-year-but1").removeClass("main_jb2");
+                        $('#receive1').show();
+                    }, 1000);
+                }else{
+                    $('.new-year-but1').hide()
+                    $('.remark').html(data.meta.message)
+                }
+            }
+        })
+    });
     function getParam(name) {
         var paramUrl = window.location.search.substr(1);
         var paramStrs = paramUrl.split('&');
