@@ -19,17 +19,18 @@ const load = function(){
                     if(response){
                         $('.photo').eq(0).css({
                             "background":'url('+response.sender_wechat_avatar_url+') no-repeat center',
-                            "background-size":'100% 100%'
+                            "background-size":'100% 100%',
+                            "display":'block'
                         });
-                        $('.red-packet').show()
                         $('.showTips').hide()
                         $('.name').eq(0).html(response.sender_wechat_nickname);
                         $('.remark,.tips').html(response.messages);
                         var m = (response.amount/100).toFixed(2);
+                        $('.tip').show()
                         if(response.status==1){
                             $('.photo').eq(1).css({
                                 "background":'url('+response.sender_wechat_avatar_url+') no-repeat center',
-                                "background-size":'100% 100%'
+                                "background-size":'100% 100%',
                             });
                             $('.name').eq(1).html(response.sender_wechat_nickname)
                             $('.money').html(m)
