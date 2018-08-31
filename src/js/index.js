@@ -21,6 +21,7 @@ const load = function(){
                             "background":'url('+response.sender_wechat_avatar_url+') no-repeat center',
                             "background-size":'100% 100%'
                         });
+                        $('.red-packet').show()
                         $('.name').eq(0).html(response.sender_wechat_nickname);
                         $('.remark,.tips').html(response.messages);
                         var m = (response.amount/100).toFixed(2);
