@@ -66,7 +66,6 @@ const load = function(){
                 nick_name:nick_name
             },
             success:function(data,text,xhr){
-                alert('222'+xhr.status)
                 if( xhr.status >=200   && xhr.status <300 ){
                     $(".new-year-but1").addClass("main_jb2");
                     setTimeout(function() {
