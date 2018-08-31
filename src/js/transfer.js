@@ -17,7 +17,7 @@ $(function(){
             alert('未授权')
         }
     }
-
+    alert(22222);
     console.log(getUrlParam('code') == null);
     console.log(getUrlParam('code') === '');
     console.log(getUrlParam('app_id'));
