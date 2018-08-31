@@ -5,11 +5,10 @@ const load = function(){
     var app_id = getParam('app_id')
     var id = getParam('id')   
     var nick_name = getParam('nick_name')
-    var haveOpenId = location.hash.indexOf('open_id')> -1 ? true : false
+    var haveOpenId = location.search.indexOf('open_id')> -1 ? 1 : ''
     var host = location.host
-    var open_id = getParam('open_id')
-    // window.location.href= '/red-packet/transfer.html?app_id='+app_id+'&id='+id
-    if(open_id){
+    if(haveOpenId){
+        var open_id = getParam('open_id')
         if(open_id){
             $.ajax({
                 url:`${config.apiHost}/public/packets/${id}`,
@@ -40,7 +39,7 @@ const load = function(){
                         } else if(response.status==4){
                             $('.remark').html('红包领取失败请联系商家重新领取')
                         }
-    
+
                     }
                 },
                 error:function(){
