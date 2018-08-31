@@ -15,6 +15,9 @@ const load = function(){
                 type:'get',
                 dataType:'json',
                 success:function(data){
+                    alert(data.meta.message)
+                    alert(data.status)
+                    alert(data.statusCode)
                     var response = data.data
                     if(response){
                         $('.photo').eq(0).css({
@@ -86,6 +89,9 @@ const load = function(){
                 alert('111'+ data.statusCode)
                 $('.new-year-but1').hide()
                 $('.remark').html(data.meta.message)
+            },
+            complete:function(){
+                alert(111)
             }
         })
     });
