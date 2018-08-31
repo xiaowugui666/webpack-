@@ -14,10 +14,9 @@ const load = function(){
                 url:`${config.apiHost}/public/packets/${id}`,
                 type:'get',
                 dataType:'json',
-                success:function(data){
+                success:function(data,text,xhr){
                     alert(data.meta.message)
-                    alert(data.status)
-                    alert(data.statusCode)
+                    alert(xhr.status)
                     var response = data.data
                     if(response){
                         $('.photo').eq(0).css({
