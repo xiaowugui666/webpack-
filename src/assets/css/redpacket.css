@@ -63,8 +63,9 @@ html,body{width:100%; height:100%; overflow:hidden;font-family:"microsoft yahei"
     line-height: 20px;
     box-sizing: border-box;
     width: 100%;
-    padding: 0 15%;
-    margin-top:0.6rem;
+    text-align:center;
+    padding: 0 20%;
+    margin-top:1rem;
 }
 .red-packet .remark{
     font-family: PingFangSC-Regular;
