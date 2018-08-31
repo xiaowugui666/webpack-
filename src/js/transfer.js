@@ -1,5 +1,5 @@
 $(function(){
-
+    alert(window.location.href)
     var code = getUrlParam('code');
     var app_id = getUrlParam('app_id');
     var state = getUrlParam('state');
@@ -10,14 +10,16 @@ $(function(){
         window.location.href = 'https://retail.51zan.com/public/mps/auth/code?app_id=wx2840761b6d4a722a&scope=snsapi_userinfo&redirect_uri=' + uri;
     }
     else {
-        if(code){
-            alert(code)
-        }
-        else if(state !== ''){
-            alert('未授权')
-        }
+        alert(window.location.href)
+
+        // if(code){
+        //     alert(code)
+        // }
+        // else if(state !== ''){
+        //     alert('未授权')
+        // }
     }
-    alert(22222);
+    
     console.log(getUrlParam('code') == null);
     console.log(getUrlParam('code') === '');
     console.log(getUrlParam('app_id'));
