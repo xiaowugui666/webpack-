@@ -22,6 +22,7 @@ const load = function(){
                             "background-size":'100% 100%'
                         });
                         $('.red-packet').show()
+                        $('.showTips').hide()
                         $('.name').eq(0).html(response.sender_wechat_nickname);
                         $('.remark,.tips').html(response.messages);
                         var m = (response.amount/100).toFixed(2);
@@ -47,8 +48,6 @@ const load = function(){
                     console.log('请稍后重试！');
                 }
             })
-        }else{
-            alert('未授权')
         }
 
     }
