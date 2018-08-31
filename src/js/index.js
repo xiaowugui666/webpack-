@@ -8,6 +8,7 @@ const load = function(){
     var haveOpenId = location.search.indexOf('open_id')> -1 ? 1 : ''
     var host = location.host
     if(haveOpenId){
+        $('.showTips').hide()
         var open_id = getParam('open_id')
         if(open_id){
             $.ajax({
@@ -22,7 +23,6 @@ const load = function(){
                             "background-size":'100% 100%',
                             "display":'block'
                         });
-                        $('.showTips').hide()
                         $('.name').eq(0).html(response.sender_wechat_nickname);
                         $('.remark,.tips').html(response.messages);
                         var m = (response.amount/100).toFixed(2);
