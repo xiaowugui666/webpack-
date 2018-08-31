@@ -43,7 +43,8 @@ const load = function(){
 
                     }
                 },
-                error:function(){
+                error:function(data){
+                    console.log(data)
                     console.log('请稍后重试！');
                 }
             })
@@ -51,13 +52,15 @@ const load = function(){
             alert('未授权')
         }
 
-    }else{
+    }
+    else{
         window.location.href= 'https://retail.51zan.com/public/mps/auth?scope=snsapi_userinfo&app_id='+app_id+'&redirect_uri='+encodeURIComponent("https://"+host+"/red-packet/index.html?id="+id)
     }
 
     $(".new-year-but1").click(function(){
         $.ajax({
             url:`${config.apiHost}/public/packets/${id}/open`,
+            // url:`${config.apiHost}/public/packets/123/open`,
             type:'get',
             dataType:'json',
             data:{
@@ -65,7 +68,8 @@ const load = function(){
                 nick_name:nick_name
             },
             success:function(data){
-                console.log(data)
+                alert('222'+ data.meta.message)
+                alert('222'+ data.statusCode)
                 if( data.statusCode >=200   && data.statusCode <300 ){
                     $(".new-year-but1").addClass("main_jb2");
                     setTimeout(function() {
@@ -76,6 +80,12 @@ const load = function(){
                     $('.new-year-but1').hide()
                     $('.remark').html(data.meta.message)
                 }
+            },
+            error:function(data){
+                alert('111'+ data.meta.message)
+                alert('111'+ data.statusCode)
+                $('.new-year-but1').hide()
+                $('.remark').html(data.meta.message)
             }
         })
     });
