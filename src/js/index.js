@@ -79,10 +79,11 @@ const load = function(){
                 }
             },
             error:function(xhr,textStatus){
+                console.log(xhr)
                 alert('111'+xhr.status)
                 alert('111'+textStatus)
                 $('.new-year-but1').hide()
-                $('.remark').html(data.meta.message)
+                // $('.remark').html(data.meta.message)
             },
         })
     });
