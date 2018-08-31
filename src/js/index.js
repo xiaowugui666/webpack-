@@ -15,7 +15,6 @@ const load = function(){
                 type:'get',
                 dataType:'json',
                 success:function(data,text,xhr){
-                    console.log(xhr.status)
                     var response = data.data
                     if(response){
                         $('.photo').eq(0).css({
@@ -45,7 +44,6 @@ const load = function(){
                     }
                 },
                 error:function(data){
-                    console.log(data)
                     console.log('请稍后重试！');
                 }
             })
@@ -80,8 +78,9 @@ const load = function(){
                     $('.remark').html(data.meta.message)
                 }
             },
-            error:function(data,text,xhr){
+            error:function(xhr,textStatus){
                 alert('111'+xhr.status)
+                alert('111'+textStatus)
                 $('.new-year-but1').hide()
                 $('.remark').html(data.meta.message)
             },
