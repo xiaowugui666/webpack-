@@ -5,9 +5,8 @@ const load = function(){
     var app_id = getParam('app_id')
     var id = getParam('id')   
     var nick_name = getParam('nick_name')
-    var haveOpenId = location.hash.indexOf('open_id')> -1 ? true : false
+    var haveOpenId = location.search.indexOf('open_id')> -1 ? 1 : ''
     var host = location.host
-    // window.location.href= '/red-packet/transfer.html?app_id='+app_id+'&id='+id
     if(haveOpenId){
         var open_id = getParam('open_id')
         if(open_id){
@@ -22,6 +21,7 @@ const load = function(){
                             "background":'url('+response.sender_wechat_avatar_url+') no-repeat center',
                             "background-size":'100% 100%'
                         });
+                        $('.red-packet').show()
                         $('.name').eq(0).html(response.sender_wechat_nickname);
                         $('.remark,.tips').html(response.messages);
                         var m = (response.amount/100).toFixed(2);
@@ -40,7 +40,7 @@ const load = function(){
                         } else if(response.status==4){
                             $('.remark').html('红包领取失败请联系商家重新领取')
                         }
-    
+
                     }
                 },
                 error:function(){
