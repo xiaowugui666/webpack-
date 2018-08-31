@@ -46,9 +46,11 @@ const load = function(){
                     }
                 },
                 error:function(data){
-                    console.log('请稍后重试！');
+                    console.log('请稍后重试！')
                 }
             })
+        }else{
+            alert(111)
         }
 
     }
