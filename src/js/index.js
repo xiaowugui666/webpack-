@@ -15,8 +15,7 @@ const load = function(){
                 type:'get',
                 dataType:'json',
                 success:function(data,text,xhr){
-                    alert(data.meta.message)
-                    alert(xhr.status)
+                    console.log(xhr.status)
                     var response = data.data
                     if(response){
                         $('.photo').eq(0).css({
@@ -62,17 +61,15 @@ const load = function(){
     $(".new-year-but1").click(function(){
         $.ajax({
             url:`${config.apiHost}/public/packets/${id}/open`,
-            // url:`${config.apiHost}/public/packets/123/open`,
             type:'get',
             dataType:'json',
             data:{
                 open_id: open_id,
                 nick_name:nick_name
             },
-            success:function(data){
-                alert('222'+ data.meta.message)
-                alert('222'+ data.statusCode)
-                if( data.statusCode >=200   && data.statusCode <300 ){
+            success:function(data,text,xhr){
+                alert('222'+xhr.status)
+                if( xhr.status >=200   && xhr.status <300 ){
                     $(".new-year-but1").addClass("main_jb2");
                     setTimeout(function() {
                         $(".new-year-but1").removeClass("main_jb2");
@@ -83,15 +80,11 @@ const load = function(){
                     $('.remark').html(data.meta.message)
                 }
             },
-            error:function(data){
-                alert('111'+ data.meta.message)
-                alert('111'+ data.statusCode)
+            error:function(data,text,xhr){
+                alert('111'+xhr.status)
                 $('.new-year-but1').hide()
                 $('.remark').html(data.meta.message)
             },
-            complete:function(){
-                alert(111)
-            }
         })
     });
     function getParam(name) {
