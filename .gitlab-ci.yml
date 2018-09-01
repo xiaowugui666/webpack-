@@ -27,7 +27,7 @@ build:develop:
   only:
     - develop
 
-build:test:
+build:release:
   stage: build
   cache:
       <<: *cache
@@ -40,6 +40,20 @@ build:test:
       - dist/
   only:
     - release
+
+build:master:
+  stage: build
+  cache:
+      <<: *cache
+  script:
+    - yarn config set sass-binary-site http://npm.taobao.org/mirrors/node-sass
+    - yarn install
+    - npm run build:master
+  artifacts:
+    paths:
+      - dist/
+  only:
+    - master
 
 deploy:develop:
   stage: deploy
@@ -58,3 +72,13 @@ deploy:test:
     - rsync $RSYNC_OPTS -e "ssh $SSH_OPTS" ./dist/ ${TEST_HOST}:/srv/static/red-packet/
   only:
     - release
+
+deploy:master:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - rsync $RSYNC_OPTS -e "ssh $SSH_OPTS" ./dist/ ${MASTER_HOST}:/srv/static/red-packet/
+  only:
+    - master
+  when: manual
