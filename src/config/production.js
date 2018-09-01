@@ -1,4 +1,4 @@
 
 export default {
-    apiHost: '/api_production',
+    apiHost: 'https://retail-api.51zan.com',
 }
