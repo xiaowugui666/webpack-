@@ -20,7 +20,7 @@ const load = function(){
                     if(response){
                         $('.photo').eq(0).css({
                             "background":'url('+response.sender_wechat_avatar_url+') no-repeat center',
-                            "background-size":'100% 100%',
+                            "background-size":'100% 100%',  
                             "display":'block'
                         });
                         $('.name').eq(0).html(response.sender_wechat_nickname);
@@ -55,7 +55,7 @@ const load = function(){
 
     }
     else{
-        window.location.href= 'https://retail.51zan.com/public/mps/auth?scope=snsapi_userinfo&app_id='+app_id+'&redirect_uri='+encodeURIComponent("https://"+host+"/red-packet/index.html?id="+id)
+        window.location.href= 'https://retail-api.51zan.com/public/mps/auth?scope=snsapi_userinfo&app_id='+app_id+'&redirect_uri='+encodeURIComponent("https://"+host+"/red-packet/index.html?id="+id)
     }
 
     $(".new-year-but1").click(function(){
