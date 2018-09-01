@@ -1,4 +1,4 @@
 
 export default {
-    apiHost: 'https://retail-static.51zan.com',
+    apiHost: 'https://retail-api.51zan.com',
 }
