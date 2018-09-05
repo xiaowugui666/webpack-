@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const copyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const apiModel = require('webpack-api-mocker')
 const path = require('path');
 
 const getHtmlConfig = function(name, options){
@@ -33,7 +34,19 @@ module.exports = {
     },
     devtool: isProduction ? false: 'inline-source-map',
     devServer: isProduction ? {}: {
-        contentBase: './dist'
+        contentBase: './dist',
+        before(app){
+            apiModel(
+                app,  
+                path.resolve('./mock/webpack.mocker.js'), 
+                {
+                    proxy: {
+                        '/api_home/*': 'https://retail-develop.51zan.com'
+                    },
+                    changeHost: true
+                }
+            )
+        }
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
