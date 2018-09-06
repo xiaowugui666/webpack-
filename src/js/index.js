@@ -5,59 +5,57 @@ const load = function(){
     var app_id = getParam('app_id')
     var id = getParam('id')   
     var nick_name = getParam('nick_name')
-    var haveOpenId = location.search.indexOf('open_id')> -1 ? 1 : ''
-    var host = location.host
-    if(haveOpenId){
-        $('.showTips').hide()
+    
         var open_id = getParam('open_id')
+        // 红包详情
         if(open_id){
             $.ajax({
                 url:`${config.apiHost}/public/packets/${id}`,
                 type:'get',
                 dataType:'json',
                 success:function(data,text,xhr){
-                    var response = data.data
-                    if(response){
-                        $('.photo').eq(0).css({
-                            "background":'url('+response.sender_wechat_avatar_url+') no-repeat center',
-                            "background-size":'100% 100%',  
-                            "display":'block'
-                        });
-                        $('.name').eq(0).html(response.sender_wechat_nickname);
-                        $('.remark,.tips').html(response.messages);
-                        var m = (response.amount/100).toFixed(2);
-                        $('.tip').show()
-                        if(response.status==1){
-                            $('.photo').eq(1).css({
+                    if( xhr.status >=200   && xhr.status <300 ){
+                        var response = data.data
+                        if(response){
+                            $('.photo').eq(0).css({
                                 "background":'url('+response.sender_wechat_avatar_url+') no-repeat center',
-                                "background-size":'100% 100%',
+                                "background-size":'100% 100%',  
+                                "display":'block'
                             });
-                            $('.name').eq(1).html(response.sender_wechat_nickname)
-                            $('.money').html(m)
-                            $('.new-year-but1').show()
-                        } else if(response.status==2){
-                            $('.remark').html('红包已领取')
-                        } else if(response.status==3){
-                            $('.remark').html('24小时内未领取，红包已失效请联系商家重新领取')
-                        } else if(response.status==4){
-                            $('.remark').html('红包领取失败请联系商家重新领取')
+                            $('.name').eq(0).html(response.sender_wechat_nickname);
+                            $('.remark,.tips').html(response.messages);
+                            $('.tip').show()
+                            if(response.status==1){
+                                $('.photo').eq(1).css({
+                                    "background":'url('+response.sender_wechat_avatar_url+') no-repeat center',
+                                    "background-size":'100% 100%',
+                                });
+                                $('.name').eq(1).html(response.sender_wechat_nickname)
+                                var m = (response.amount/100).toFixed(2);
+                                $('.money').html(m)
+                                $('.new-year-but1').show()
+                            } else if(response.status==2){
+                                $('.remark').html('红包已领取')
+                            } else if(response.status==3){
+                                $('.remark').html('24小时内未领取，红包已失效请联系商家重新领取')
+                            } else if(response.status==4){
+                                $('.remark').html('红包领取失败请联系商家重新领取')
+                            }
+    
                         }
-
+                    }else{
+                        $('.remark').html(data.meta.message)
                     }
                 },
-                error:function(data){
-                    console.log('请稍后重试！')
+                error:function(xhr){
+                    $('.remark').html(xhr.responseJSON.meta.message)
                 }
             })
         }else{
-            alert(111)
+            $('.remark').html('微信授权失败！')
         }
 
-    }
-    else{
-        window.location.href= 'https://retail-api.51zan.com/public/mps/auth?scope=snsapi_userinfo&app_id='+app_id+'&redirect_uri='+encodeURIComponent("https://"+host+"/red-packet/index.html?id="+id)
-    }
-
+    // 拆红包
     $(".new-year-but1").click(function(){
         $.ajax({
             url:`${config.apiHost}/public/packets/${id}/open`,
@@ -80,7 +78,6 @@ const load = function(){
                 }
             },
             error:function(xhr){
-                console.log(xhr)
                 $(".new-year-but1").addClass("main_jb2");
                 setTimeout(function() {
                     $('.new-year-but1').hide()
