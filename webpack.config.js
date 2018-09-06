@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const copyWebpackPlugin = require('copy-webpack-plugin')
-const apiModel = require('webpack-api-mocker')
+// const apiModel = require('webpack-api-mocker')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 
@@ -34,18 +34,6 @@ module.exports = {
     devtool: isProduction ? false: 'inline-source-map',
     devServer: isProduction ? {}: {
         contentBase: './dist',
-        before(app){
-            apiModel(
-                app,  
-                path.resolve('./mock/webpack.mocker.js'), 
-                {
-                    proxy: {
-                        '/api_home/*': 'https://retail-develop.51zan.com'
-                    },
-                    changeHost: true
-                }
-            )
-        }
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
