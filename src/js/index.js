@@ -6,7 +6,7 @@ const load = function(){
     var id = getParam('id')   
     var nick_name = getParam('nick_name')
     // var haveOpenId = location.search.indexOf('open_id')> -1 ? 1 : ''
-    var host = location.host
+    // var host = location.host
     // if(haveOpenId){
         var open_id = getParam('open_id')
         // 红包详情
