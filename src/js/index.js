@@ -5,9 +5,7 @@ const load = function(){
     var app_id = getParam('app_id')
     var id = getParam('id')   
     var nick_name = getParam('nick_name')
-    // var haveOpenId = location.search.indexOf('open_id')> -1 ? 1 : ''
-    // var host = location.host
-    // if(haveOpenId){
+    
         var open_id = getParam('open_id')
         // 红包详情
         if(open_id){
@@ -56,12 +54,6 @@ const load = function(){
         }else{
             $('.remark').html('微信授权失败！')
         }
-
-    }
-    // else{
-    //     // 微信授权
-    //     window.location.href= config.apiHost+'/public/mps/auth?scope=snsapi_userinfo&app_id='+app_id+'&redirect_uri='+encodeURIComponent("https://"+host+"/red-packet/index.html?id="+id)
-    // }
 
     // 拆红包
     $(".new-year-but1").click(function(){
