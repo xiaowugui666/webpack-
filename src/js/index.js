@@ -70,7 +70,7 @@ const load = function(){
                     $(".new-year-but1").addClass("main_jb2");
                     setTimeout(function() {
                         $(".new-year-but1").removeClass("main_jb2");
-                        $('#receive1').show();
+                        $('#receive1').show()
                     }, 1000);
                 }else{
                     $('.new-year-but1').hide()
@@ -80,7 +80,7 @@ const load = function(){
             error:function(xhr){
                 $(".new-year-but1").addClass("main_jb2");
                 setTimeout(function() {
-                    $(".new-year-but1").removeClass("main_jb2");
+                    $(".new-year-but1").hide()
                     $('.remark').html(xhr.responseJSON.meta.message)
                 }, 1000);
             },
