@@ -80,7 +80,7 @@ const load = function(){
             error:function(xhr){
                 $(".new-year-but1").addClass("main_jb2");
                 setTimeout(function() {
-                    $('.new-year-but1').hide()
+                    $(".new-year-but1").removeClass("main_jb2");
                     $('.remark').html(xhr.responseJSON.meta.message)
                 }, 1000);
             },
