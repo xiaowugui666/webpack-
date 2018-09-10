@@ -45,7 +45,7 @@ const load = function(){
                         }
                     }else{
                         $('.remark').html(data.meta.message)
-                    }
+                    }  
                 },
                 error:function(xhr){
                     $('.remark').html(xhr.responseJSON.meta.message)
@@ -81,7 +81,8 @@ const load = function(){
                 $(".new-year-but1").addClass("main_jb2");
                 setTimeout(function() {
                     $(".new-year-but1").hide()
-                    $('.remark').html(xhr.responseJSON.meta.message)
+                    var text = JSON.parse(xhr.responseText)
+                    $('.remark').html(text.meta.message)
                 }, 1000);
             },
         })
