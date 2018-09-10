@@ -78,11 +78,10 @@ const load = function(){
                 }
             },
             error:function(xhr){
-                console.log(xhr)
                 $(".new-year-but1").addClass("main_jb2");
                 setTimeout(function() {
                     $(".new-year-but1").hide()
-                    $('.remark').html(xhr.responseJSON.meta.message)
+                    $('.remark').html(xhr.response.meta.message)
                 }, 1000);
             },
         })
