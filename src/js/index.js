@@ -81,8 +81,8 @@ const load = function(){
                 $(".new-year-but1").addClass("main_jb2");
                 setTimeout(function() {
                     $(".new-year-but1").hide()
-                    var text= decodeURIComponent(xhr.responseText.meta.message)
-                    $('.remark').html(text)
+                    var text = JSON.parse(xhr.responseText)
+                    $('.remark').html(text.meta.message)
                 }, 1000);
             },
         })
