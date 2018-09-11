@@ -24,7 +24,7 @@ const load = function(){
                     if(response.status==1){
                         document.querySelectorAll('.photo')[1].style.background = 'url('+response.sender_wechat_avatar_url+') no-repeat center'
                         document.querySelectorAll('.photo')[1].style.backgroundSize = '100% 100%'
-                        document.querySelectorAll('.name')[1].innerHTML  =response.sender_wechat_nickname
+                        document.querySelector('.names').innerHTML  =response.sender_wechat_nickname
                         document.querySelector('.money').innerHTML =(response.amount/100).toFixed(2);
                         document.querySelector('.new-year-but1').style.display = 'block'
                     } else if(response.status==2){
@@ -37,7 +37,7 @@ const load = function(){
                 } 
             },
             fail:function(xhr){
-                document.querySelector('.remark').innerHTML =xhr.meta.message
+                document.querySelector('.remark').innerHTML = xhr.meta.message
             }
         })
     }
