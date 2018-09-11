@@ -60,7 +60,7 @@ const load = function(){
                 }, 1000);
             },
             fail:function(xhr){
-                document.querySelector( 'new-year-but1').style.display = 'none'
+                document.querySelector( '.new-year-but1').style.display = 'none'
                 document.querySelector('.remark').innerHTML = xhr.meta.message
             },
         })
