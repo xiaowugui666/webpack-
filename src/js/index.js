@@ -37,13 +37,13 @@ const load = function(){
                 } 
             },
             fail:function(xhr){
-                $('.remark').html(xhr.meta.message)
+                querySelector('.remark').innerHTML =xhr.meta.message
             }
         })
     }
 
     // 拆红包
-    $(".new-year-but1").click(function(){
+    querySelector('.new-year-but1').onclick = function(){
         ajax({
             url:`${config.apiHost}/public/packets/${id}/open`,
             type:'get',
@@ -64,7 +64,7 @@ const load = function(){
                 querySelector('.remark').innerHTML = xhr.meta.message
             },
         })
-    });
+    }
 
     function getParam(name) {
         var paramUrl = window.location.search.substr(1);
