@@ -7,43 +7,43 @@ const load = function(){
     var open_id = getParam('open_id')
     // 红包详情
     if(open_id){
-        $.ajax({
+        ajax({
             url:`${config.apiHost}/public/packets/${id}`,
             type:'get',
             dataType:'json',
             success:function(data){
                 var response = data.data
                 if(response){
-                    querySelector('.photo').style.background = 'url('+response.sender_wechat_avatar_url+') no-repeat center'
-                    querySelector('.photo').style.backgroundSize = '100% 100%'
-                    querySelector('.photo').style.display = 'block'
-                    querySelector('.name').innerHTML = response.sender_wechat_nickname
-                    querySelector('.remark').innerHTML = response.remark
-                    querySelector('.tips').innerHTML = response.remark
-                    querySelector('.tip').style.display = 'block'
+                    document.querySelector('.photo').style.background = 'url('+response.sender_wechat_avatar_url+') no-repeat center'
+                    document.querySelector('.photo').style.backgroundSize = '100% 100%'
+                    document.querySelector('.photo').style.display = 'block'
+                    document.querySelector('.name').innerHTML = response.sender_wechat_nickname
+                    document.querySelector('.remark').innerHTML = response.remark
+                    document.querySelector('.tips').innerHTML = response.remark
+                    document.querySelector('.tip').style.display = 'block'
                     if(response.status==1){
-                        querySelectorAll('.photo')[1].style.background = 'url('+response.sender_wechat_avatar_url+') no-repeat center'
-                        querySelectorAll('.photo')[1].style.backgroundSize = '100% 100%'
-                        querySelectorAll('.name')[1].innerHTML  =response.sender_wechat_nickname
-                        querySelector('.money').innerHTML =(response.amount/100).toFixed(2);
-                        querySelector('.new-year-but1').style.display = 'block'
+                        document.querySelectorAll('.photo')[1].style.background = 'url('+response.sender_wechat_avatar_url+') no-repeat center'
+                        document.querySelectorAll('.photo')[1].style.backgroundSize = '100% 100%'
+                        document.querySelectorAll('.name')[1].innerHTML  =response.sender_wechat_nickname
+                        document.querySelector('.money').innerHTML =(response.amount/100).toFixed(2);
+                        document.querySelector('.new-year-but1').style.display = 'block'
                     } else if(response.status==2){
-                        querySelector('.remark').innerHTML = '红包已领取'
+                        document.querySelector('.remark').innerHTML = '红包已领取'
                     } else if(response.status==3){
-                        querySelector('.remark').innerHTML = '24小时内未领取，红包已失效请联系商家重新领取'
+                        document.querySelector('.remark').innerHTML = '24小时内未领取，红包已失效请联系商家重新领取'
                     } else if(response.status==4){
-                        querySelector('.remark').innerHTML = '红包领取失败请联系商家重新领取'
+                        document.querySelector('.remark').innerHTML = '红包领取失败请联系商家重新领取'
                     }
                 } 
             },
             fail:function(xhr){
-                $('.remark').html(xhr.meta.message)
+                document.querySelector('.remark').innerHTML =xhr.meta.message
             }
         })
     }
 
     // 拆红包
-    $(".new-year-but1").click(function(){
+    document.querySelector('.new-year-but1').onclick = function(){
         ajax({
             url:`${config.apiHost}/public/packets/${id}/open`,
             type:'get',
@@ -53,18 +53,18 @@ const load = function(){
                 nick_name:nick_name
             },
             success:function(data,text,xhr){
-                $(".new-year-but1").addClass("main_jb2");
+                document.querySelector('.new-year-but1').className = ' new-year-but1  main_jb2 '
                 setTimeout(function() {
-                    $(".new-year-but1").removeClass("main_jb2");
-                    $('#receive1').show()
+                    document.querySelector('.new-year-but1').className = ' new-year-but1 '
+                    document.querySelector( '#receive1').style.display = 'block'
                 }, 1000);
             },
             fail:function(xhr){
-                $(".new-year-but1").hide()
-                $('.remark').html(xhr.meta.message)
+                document.querySelector( 'new-year-but1').style.display = 'none'
+                document.querySelector('.remark').innerHTML = xhr.meta.message
             },
         })
-    });
+    }
 
     function getParam(name) {
         var paramUrl = window.location.search.substr(1);
@@ -116,8 +116,7 @@ const load = function(){
     }
 
 }
-
-$(function(){
+window.onload= function() {
     setRem()
     load()
-})
+}
