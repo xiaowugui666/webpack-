@@ -7,7 +7,7 @@ const load = function(){
     var open_id = getParam('open_id')
     // 红包详情
     if(open_id){
-        $.ajax({
+        ajax({
             url:`${config.apiHost}/public/packets/${id}`,
             type:'get',
             dataType:'json',
@@ -53,15 +53,15 @@ const load = function(){
                 nick_name:nick_name
             },
             success:function(data,text,xhr){
-                $(".new-year-but1").addClass("main_jb2");
+                querySelector('.new-year-but1').className = ' new-year-but1  main_jb2 '
                 setTimeout(function() {
-                    $(".new-year-but1").removeClass("main_jb2");
-                    $('#receive1').show()
+                    querySelector('.new-year-but1').className = ' new-year-but1 '
+                    querySelector( '#receive1').style.display = 'block'
                 }, 1000);
             },
             fail:function(xhr){
-                $(".new-year-but1").hide()
-                $('.remark').html(xhr.meta.message)
+                querySelector( 'new-year-but1').style.display = 'none'
+                querySelector('.remark').innerHTML = xhr.meta.message
             },
         })
     });
@@ -116,8 +116,7 @@ const load = function(){
     }
 
 }
-
-$(function(){
+window.onload= function() {
     setRem()
     load()
-})
+}
