@@ -18,7 +18,7 @@ const load = function(){
                     document.querySelector('.photo').style.backgroundSize = '100% 100%'
                     document.querySelector('.photo').style.display = 'block'
                     document.querySelector('.name').innerHTML = response.sender_wechat_nickname
-                    document.querySelector('.remark').innerHTML = response.remark
+                    document.querySelector('.remark').innerHTML = response.messages
                     document.querySelector('.tips').innerHTML = response.remark
                     document.querySelector('.tip').style.display = 'block'
                     if(response.status==1){
