@@ -19,7 +19,7 @@ const load = function(){
                     document.querySelector('.photo').style.display = 'block'
                     document.querySelector('.name').innerHTML = response.sender_wechat_nickname
                     document.querySelector('.remark').innerHTML = response.messages
-                    document.querySelector('.tips').innerHTML = response.remark
+                    document.querySelector('.tips').innerHTML = response.messages
                     document.querySelector('.tip').style.display = 'block'
                     if(response.status==1){
                         document.querySelectorAll('.photo')[1].style.background = 'url('+response.sender_wechat_avatar_url+') no-repeat center'
