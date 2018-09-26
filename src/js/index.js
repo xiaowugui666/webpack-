@@ -43,7 +43,8 @@ const load = function(){
     }
 
     // 拆红包
-    document.querySelector('.new-year-but1').onclick = function(){
+    document.querySelector('.new-year-but1').addEventListener('click', function(){
+        document.querySelector('.new-year-but1').removeEventListener('click')
         ajax({
             url:`${config.apiHost}/public/packets/${id}/open`,
             type:'get',
@@ -64,7 +65,7 @@ const load = function(){
                 document.querySelector('.remark').innerHTML = xhr.meta.message
             },
         })
-    }
+    })
 
     function getParam(name) {
         var paramUrl = window.location.search.substr(1);
