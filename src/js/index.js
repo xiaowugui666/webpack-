@@ -44,11 +44,16 @@ const load = function(){
 
     // 拆红包
     document.querySelector('.new-year-but1').addEventListener('click', function(){
-        document.querySelector('.new-year-but1').removeEventListener('click')
+        if(document.querySelector('.new-year-but1').removeEventListener){
+            document.querySelector('.new-year-but1').removeEventListener('click')
+        }else if( document.querySelector('.new-year-but1').detachEvent){
+            document.querySelector('.new-year-but1').detachEvent('onclick')
+        }
         ajax({
             url:`${config.apiHost}/public/packets/${id}/open`,
             type:'get',
-            dataType:'json',
+            async:false,
+            dataType:'json',   
             data:{
                 open_id: open_id,
                 nick_name:nick_name
