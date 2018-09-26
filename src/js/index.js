@@ -44,11 +44,7 @@ const load = function(){
 
     // 拆红包
     document.querySelector('.new-year-but1').addEventListener('click', function(){
-        if(document.querySelector('.new-year-but1').removeEventListener){
-            document.querySelector('.new-year-but1').removeEventListener('click')
-        }else if( document.querySelector('.new-year-but1').detachEvent){
-            document.querySelector('.new-year-but1').detachEvent('onclick')
-        }
+        $(this).attr('disabled',true)
         ajax({
             url:`${config.apiHost}/public/packets/${id}/open`,
             type:'get',
