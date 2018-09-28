@@ -67,7 +67,7 @@ deploy:develop:
   only:
     - develop
 
-deploy:test:
+deploy:release:
   stage: deploy
   variables:
     GIT_STRATEGY: none
@@ -75,6 +75,7 @@ deploy:test:
     - rsync $RSYNC_OPTS -e "ssh $SSH_OPTS" ./dist/ ${TEST_HOST}:/srv/static/red-packet/
   only:
     - release
+  when: manual
 
 deploy:master:
   stage: deploy
