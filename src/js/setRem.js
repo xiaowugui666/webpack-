@@ -1,7 +1,6 @@
 export default function(){
     var rem=0;
-    var htmlDOM=document.documentElement;
-    var currentWidth=htmlDOM.clientWidth;
+    var currentWidth=document.documentElement.clientWidth ||document.body.clientWidth ;
     rem=currentWidth/3.75;
-    htmlDOM.style.fontSize=rem+'px';
+    document.querySelector('html').style.fontSize=rem+'px';
 }
