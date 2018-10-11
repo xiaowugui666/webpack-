@@ -7,6 +7,14 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>小红包</title>
+    <script>
+        (function(){
+            var rem=0;
+            var currentWidth=document.documentElement.clientWidth ||document.body.clientWidth ;
+            rem=currentWidth/3.75;
+            document.querySelector('html').style.fontSize=rem+'px';
+        })()
+    </script>
     <style>
         html,body,div,span,a,p,img,dl,dt,dd,ol,ul,li{border:0;margin:0;padding:0;font-size:100%;text-decoration:none}
         img{color:transparent;font-size:0;vertical-align:middle;-ms-interpolation-mode:bicubic;max-width:100%}
@@ -15,7 +23,9 @@
         :focus,.focus{outline:none}
         input[type="button"], input[type="submit"], input[type="reset"] {-webkit-appearance: none;}
         textarea { -webkit-appearance: none;}
-        html,body{width:100%; height:100%; overflow:hidden;font-family:"microsoft yahei";font-size:13px;line-height:1.5;background:#C73E27; position:relative}
+        html,body{width:100%; height:100%; overflow:hidden;font-family:"microsoft yahei";font-size:13px;line-height:1.5;
+        background:#C73E27;
+         position:relative}
         .win1{ background:rgba(255,255,255,1);background:rgba(255,255,255,1);  width:100%; height:100%; top:0px; left:0px; z-index:1000;  position:fixed; display:none; overflow-x:hidden}
         .shade{
         position: fixed;
@@ -23,8 +33,9 @@
         right: 0;
         width: 100%;
         height: 100%;
-        background: #333333;
-        opacity: 0.76;
+        /* background: #333333;
+        opacity: 0.76; */
+        background: rgba(51,51,51,0.76)
         }
         .red-packet{
         width:3.25rem;

@@ -1,5 +1,4 @@
 import config from '../config'
-import setRem from './setRem'
 
 const load = function(){
     var id = getParam('id')   
@@ -34,7 +33,7 @@ const load = function(){
                     } else if(response.status==4){
                         document.querySelector('.remark').innerHTML = '红包领取失败请联系商家重新领取'
                     }
-                } 
+                }
             },
             fail:function(xhr){
                 document.querySelector('.remark').innerHTML = xhr.meta.message
@@ -119,6 +118,5 @@ const load = function(){
 
 }
 window.onload= function() {
-    setRem()
     load()
 }
