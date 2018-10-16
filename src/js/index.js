@@ -1,5 +1,13 @@
 import config from '../config'
 
+const getElement = function(selector){
+    return document.querySelector(selector)
+}
+
+const getElements = function(selector){
+    return document.querySelectorAll(selector)
+}
+
 const load = function(){
     var id = getParam('id')   
     var nick_name = getParam('nick_name')
@@ -7,65 +15,93 @@ const load = function(){
     // 红包详情
     if(open_id){
         ajax({
-            url:`${config.apiHost}/public/packets/${id}`,
+            url: config.apiHost + '/public/packets/'+ id,
             type:'get',
             dataType:'json',
-            success:function(data){
+            success: function(data){
+                getElement("#loading").style.display='none'
                 var response = data.data
                 if(response){
-                    document.querySelector('.photo').style.background = 'url('+response.sender_wechat_avatar_url+') no-repeat center'
-                    document.querySelector('.photo').style.backgroundSize = '100% 100%'
-                    document.querySelector('.photo').style.display = 'block'
-                    document.querySelector('.name').innerHTML = response.sender_wechat_nickname
-                    document.querySelector('.remark').innerHTML = response.messages
-                    document.querySelector('.tips').innerHTML = response.messages
-                    document.querySelector('.tip').style.display = 'block'
+                    getElement('.photo').style.background = 'url('+response.sender_wechat_avatar_url+') no-repeat center'
+                    getElement('.photo').style.backgroundSize = '100% 100%'
+                    getElement('.photo').style.display = 'block'
+                    getElement('.name').innerHTML = response.sender_wechat_nickname
+                    getElement('.remark').innerHTML = response.messages
+                    getElement('.tips').innerHTML = response.messages
+                    getElement('.tip').style.display = 'block'
                     if(response.status==1){
-                        document.querySelectorAll('.photo')[1].style.background = 'url('+response.sender_wechat_avatar_url+') no-repeat center'
-                        document.querySelectorAll('.photo')[1].style.backgroundSize = '100% 100%'
-                        document.querySelector('.names').innerHTML  =response.sender_wechat_nickname
-                        document.querySelector('.money').innerHTML =(response.amount/100).toFixed(2);
-                        document.querySelector('.new-year-but1').style.display = 'block'
+                        getElements('.photo')[1].style.background = 'url('+response.sender_wechat_avatar_url+') no-repeat center'
+                        getElements('.photo')[1].style.backgroundSize = '100% 100%'
+
+                        getElement('.names').innerHTML  = response.sender_wechat_nickname
+                        getElement('.money').innerHTML = (response.amount/100).toFixed(2);
+                        getElement('.new-year-but1').style.display = 'block'
                     } else if(response.status==2){
-                        document.querySelector('.remark').innerHTML = '红包已领取'
+                        getElement('.remark').innerHTML = '红包已领取'
                     } else if(response.status==3){
-                        document.querySelector('.remark').innerHTML = '24小时内未领取，红包已失效请联系商家重新领取'
+                        getElement('.remark').innerHTML = '24小时内未领取，红包已失效请联系商家重新领取'
                     } else if(response.status==4){
-                        document.querySelector('.remark').innerHTML = '红包领取失败请联系商家重新领取'
+                        getElement('.remark').innerHTML = '红包领取失败请联系商家重新领取'
                     }
                 }
             },
             fail:function(xhr){
-                document.querySelector('.remark').innerHTML = xhr.meta.message
+                try {
+                    const resposne = JSON.parse(xhr.responseText)
+                    getElement('.remark').innerHTML = resposne.meta.message
+                } catch(e) {
+                    getElement('.remark').innerHTML = '领取失败，请联系管理员。 错误码：' + xhr.status
+                }
+                // getElement('.remark').innerHTML = xhr.meta.message
             }
         })
     }
 
     // 拆红包
-    document.querySelector('.new-year-but1').addEventListener('click', function(){
-        document.querySelector('.new-year-but1').disabled=true
+    getElement('.new-year-but1').addEventListener('click', function(){
+        getElement('.new-year-but1').disabled = true
+        getElement('.new-year-but1').className = ' new-year-but1  main_jb2 '
+        const start = new Date()
         ajax({
-            url:`${config.apiHost}/public/packets/${id}/open`,
+            url: config.apiHost + '/public/packets/' + id + '/open',
             type:'get',
             async:false,
             dataType:'json',   
-            data:{
+            data: {
                 open_id: open_id,
                 nick_name:nick_name
             },
             success:function(data,text,xhr){
-                document.querySelector('.new-year-but1').className = ' new-year-but1  main_jb2 '
-                setTimeout(function() {
-                    document.querySelector('.new-year-but1').className = ' new-year-but1 '
-                    document.querySelector( '#receive1').style.display = 'block'
-                }, 1000);
+                delayExexute(function() {
+                    getElement('.new-year-but1').className = ' new-year-but1 '
+                    getElement( '#receive1').style.display = 'block'
+                }, 1000, start);
             },
             fail:function(xhr){
-                document.querySelector( '.new-year-but1').style.display = 'none'
-                document.querySelector('.remark').innerHTML = xhr.meta.message
+                delayExexute(function() {
+                    getElement( '.new-year-but1').style.display = 'none'
+                    try {
+                        const resposne = JSON.parse(xhr.responseText)
+                        getElement('.remark').innerHTML = resposne.meta.message
+                    } catch(e) {
+                        getElement('.remark').innerHTML = '领取失败，请联系管理员。 错误码：' + xhr.status
+                    }
+                }, 1000, start)
             },
         })
     })
+
+    function delayExexute(callback, milliseconds, start ) {
+        let ms = milliseconds
+        
+        if(start) {
+            const end = new Date()
+            const sub = end-start
+            ms = milliseconds - sub 
+        }
+
+        return setTimeout(callback, ms)
+    }
 
     function getParam(name) {
         var paramUrl = window.location.search.substr(1);
@@ -105,12 +141,12 @@ const load = function(){
             xmlHttp.open(opt.type, opt.url + '?' + postData, opt.async);
             xmlHttp.send(null);
         } 
-        xmlHttp.onreadystatechange = () => {
+        xmlHttp.onreadystatechange = function(){
             if (xmlHttp.readyState ===4) {
                 if (xmlHttp.status >= 200 && xmlHttp.status < 300) {
                     opt.success && opt.success(JSON.parse(xmlHttp.responseText));                    
                 } else {
-                    opt.fail && opt.fail(JSON.parse(xmlHttp.responseText))
+                    opt.fail && opt.fail(xmlHttp)
                 }
             }
         }
