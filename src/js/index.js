@@ -105,7 +105,7 @@ const load = function(){
             xmlHttp.open(opt.type, opt.url + '?' + postData, opt.async);
             xmlHttp.send(null);
         } 
-        xmlHttp.onreadystatechange = () => {
+        xmlHttp.onreadystatechange = function(){
             if (xmlHttp.readyState ===4) {
                 if (xmlHttp.status >= 200 && xmlHttp.status < 300) {
                     opt.success && opt.success(JSON.parse(xmlHttp.responseText));                    
