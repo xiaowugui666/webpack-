@@ -1,4 +1,4 @@
-const config = require(`./${HUZAN_ENV}.js`).default
+var config = require(`./${HUZAN_ENV}.js`).default
 
 if (typeof Object.assign != 'function') {
     // Must be writable: true, enumerable: false, configurable: true
