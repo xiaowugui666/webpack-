@@ -1,14 +1,14 @@
 import config from '../config'
 
-const getElement = function(selector){
+var getElement = function(selector){
     return document.querySelector(selector)
 }
 
-const getElements = function(selector){
+var getElements = function(selector){
     return document.querySelectorAll(selector)
 }
 
-const load = function(){
+var load = function(){
     var id = getParam('id')   
     var nick_name = getParam('nick_name')
     var open_id = getParam('open_id')
@@ -47,7 +47,7 @@ const load = function(){
             },
             fail:function(xhr){
                 try {
-                    const resposne = JSON.parse(xhr.responseText)
+                    var resposne = JSON.parse(xhr.responseText)
                     getElement('.remark').innerHTML = resposne.meta.message
                 } catch(e) {
                     getElement('.remark').innerHTML = '领取失败，请联系管理员。 错误码：' + xhr.status
@@ -61,7 +61,7 @@ const load = function(){
     getElement('.new-year-but1').addEventListener('click', function(){
         getElement('.new-year-but1').disabled = true
         getElement('.new-year-but1').className = ' new-year-but1  main_jb2 '
-        const start = new Date()
+        var start = new Date()
         ajax({
             url: config.apiHost + '/public/packets/' + id + '/open',
             type:'get',
@@ -81,7 +81,7 @@ const load = function(){
                 delayExexute(function() {
                     getElement( '.new-year-but1').style.display = 'none'
                     try {
-                        const resposne = JSON.parse(xhr.responseText)
+                        var resposne = JSON.parse(xhr.responseText)
                         getElement('.remark').innerHTML = resposne.meta.message
                     } catch(e) {
                         getElement('.remark').innerHTML = '领取失败，请联系管理员。 错误码：' + xhr.status
@@ -92,11 +92,11 @@ const load = function(){
     })
 
     function delayExexute(callback, milliseconds, start ) {
-        let ms = milliseconds
+        var ms = milliseconds
         
         if(start) {
-            const end = new Date()
-            const sub = end-start
+            var end = new Date()
+            var sub = end-start
             ms = milliseconds - sub 
         }
 
