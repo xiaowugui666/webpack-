@@ -1,10 +1,12 @@
-import config from '../config'
+var config = require('../config')
 
 var getElement = function(selector){
+    // return $(selector)[0]
     return document.querySelector(selector)
 }
 
 var getElements = function(selector){
+    // return $(selector)
     return document.querySelectorAll(selector)
 }
 
@@ -114,6 +116,16 @@ var load = function(){
     }
 
     function ajax(opt) {
+        // return $.ajax({
+        //     type: opt.type,
+        //     url: opt.url,
+        //     async: opt.async || true,
+        //     data: opt.data,
+        //     dataType: opt.dataType || 'json',
+        //     success: opt.success || function(){},
+        //     error: opt.fail || function(){}
+        // })
+
         opt = opt || {};
         opt.type = opt.type|| 'POST';
         opt.url = opt.url || '';
