@@ -269,17 +269,42 @@
         transform: translate(-30px, -30px) scale(0.3) translate(30px, 30px);
       }
       </style>
-    <!-- <script src="./assets/js/zepto.min.js"></script> -->
+    <script type="text/javascript">
+        // function ravenOnLoad(){
+        //     if(! this.readyState || this.readyState=='loaded' || this.readyState=='complete'){
+        //         Raven.config('https://0ad80a95662943fdbb7ec6dcc429496f@sentry-online.51zan.com/10').install()
+        //     }
+        // }
+        // var script = document.createElement("script")
+        // script.src='https://asset.51zan.com/common/libs/raven/3.19.1/raven.min.js'
+        // script.onload = script.onreadystatechange = ravenOnLoad
+        // document.head.appendChild(script);
+
+        window.onerror = function(){
+            document.getElementById('remark').innerHTML = '领取失败，请联系管理员。原因：' + JSON.stringify(arguments)
+        }
+    </script>
+    <!-- <script src="" onload="ravenOnLoad" onreadystatechange="ravenOnLoad"></script> -->
+    
+    <!-- <script src="https://asset.51zan.com/common/libs/zepto/v1.2.0/zepto.min.js"></script> -->
 </head>
 <body>
     
     <div class="shade">
         <div class="red-packet" style="position: relative;">
-            <div id="loading" style="position:absolute; top: 45%; left: 40%;"><div class="lds-css ng-scope" style=" width: 60px; height: 60px;"><div style="width:100%;height:100%" class="lds-dual-ring"><div></div></div></div></div>
+            <div id="loading" style="position:absolute; top: 45%; left: 40%;">
+                <div class="lds-css ng-scope" style=" width: 60px; height: 60px;">
+                    <div style="width:100%;height:100%" class="lds-dual-ring">
+                        <div style="text-align: center; color: rgb(255, 255, 255); line-height: 160px; font-size: 32px;">
+                            加载..
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="photo"></div>
             <p class="name"></p>
             <p class="tip">给你发了一个红包</p>
-            <p class="remark"></p>    
+            <p class="remark" id="remark"></p>    
             <button class="new-year-but1"></button>
         </div>
         
