@@ -31,6 +31,20 @@ module.exports = {
       filename: 'js/[name].[chunkhash].js',
       path: path.resolve(__dirname, 'dist')
     },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude:/(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader'
+                }
+            }
+        ]
+    },
+    // optimization: {
+    //     minimize: false
+    // },
     devtool: isProduction ? false: 'inline-source-map',
     devServer: isProduction ? {}: {
         contentBase: './dist',
