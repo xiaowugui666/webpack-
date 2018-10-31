@@ -12,12 +12,15 @@ var getElements = function(selector){
 
 var load = function(){
     var id = getParam('id')   
-    var nick_name = getParam('nick_name')
+    var nick_name = ''
     var open_id = getParam('open_id')
+    
     // 红包详情
     if(open_id){
+        var url = config.apiHost + '/public/packets/'+ id
+        // url='https://retail-api.51zan.com/public/packets/%2B%2FY3SiZLnd6R1hHkTQ'
         ajax({
-            url: config.apiHost + '/public/packets/'+ id,
+            url: url,
             type:'get',
             dataType:'json',
             success: function(data){
@@ -71,7 +74,7 @@ var load = function(){
             dataType:'json',   
             data: {
                 open_id: open_id,
-                nick_name:nick_name
+                nick_name: nick_name
             },
             success:function(data,text,xhr){
                 delayExexute(function() {
@@ -110,22 +113,13 @@ var load = function(){
         var paramStrs = paramUrl.split('&');
         var params = {};
         for (var index = 0; index < paramStrs.length; index++) {
-            params[paramStrs[index].split('=')[0]] = decodeURI(paramStrs[index].split('=')[1]);
+            var paramStrArray = paramStrs[index].split('=')
+            params[paramStrArray[0]] = decodeURI(paramStrArray[1])
         }
         return params[name];
     }
 
     function ajax(opt) {
-        // return $.ajax({
-        //     type: opt.type,
-        //     url: opt.url,
-        //     async: opt.async || true,
-        //     data: opt.data,
-        //     dataType: opt.dataType || 'json',
-        //     success: opt.success || function(){},
-        //     error: opt.fail || function(){}
-        // })
-
         opt = opt || {};
         opt.type = opt.type|| 'POST';
         opt.url = opt.url || '';
@@ -150,7 +144,9 @@ var load = function(){
             xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
             xmlHttp.send(postData);
         }else if (opt.type.toUpperCase() === 'GET') {
-            xmlHttp.open(opt.type, opt.url + '?' + postData, opt.async);
+            var sendUrl = postData ? opt.url + '?' + postData : opt.url
+
+            xmlHttp.open(opt.type, sendUrl, opt.async)
             xmlHttp.send(null);
         } 
         xmlHttp.onreadystatechange = function(){
