@@ -11,9 +11,9 @@ var getElements = function(selector){
 }
 
 var load = function(){
-    var id = getParam('id')   
+    var id = decodeURI(getParam('id'))
     var nick_name = ''
-    var open_id = getParam('open_id')
+    var open_id = decodeURI(getParam('open_id'))
     
     // 红包详情
     if(open_id){
@@ -114,7 +114,7 @@ var load = function(){
         var params = {};
         for (var index = 0; index < paramStrs.length; index++) {
             var paramStrArray = paramStrs[index].split('=')
-            params[paramStrArray[0]] = decodeURI(paramStrArray[1])
+            params[paramStrArray[0]] = (paramStrArray[1])
         }
         return params[name];
     }
