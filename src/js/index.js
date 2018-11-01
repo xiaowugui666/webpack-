@@ -1,3 +1,5 @@
+require('../css/index.css')
+
 var config = require('../config')
 
 var getElement = function(selector){
