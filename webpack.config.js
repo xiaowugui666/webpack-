@@ -80,10 +80,10 @@ module.exports = {
             'HUZAN_ENV': JSON.stringify(process.env.HUZAN_ENV),
         }),
         new HtmlWebpackPlugin(getHtmlConfig('index', { inject: 'head'})),
-        new copyWebpackPlugin([{
-            from: __dirname + '/src/assets',
-            to: './assets'
-        }])
+        // new copyWebpackPlugin([{
+        //     from: __dirname + '/src/assets',
+        //     to: './assets'
+        // }])
     ]
 };
 
