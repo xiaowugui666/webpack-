@@ -96,6 +96,18 @@
         padding: 0 15%;
         margin-top:0.5rem;
         }
+        .red-packet .remark-reason {
+            padding-top: 10px;
+            display: block;
+            font-size: 14px;
+            text-align: left;
+            line-height: 1.5;
+        }
+        .red-packet .remark-reason span{
+            display: block;
+            text-indent: 24px;
+            font-size: 12px;
+        }
         .red-packet .decorate{
         width: 0.2rem;
         height: 0.2rem;
@@ -281,7 +293,7 @@
         // document.head.appendChild(script);
 
         window.onerror = function(){
-            document.getElementById('remark').innerHTML = '领取失败，请联系管理员。原因：' + JSON.stringify(arguments)
+            document.getElementById('remark').innerHTML = '拆红包失败' + '<p class="remark-reason"> 原因是：<span>'+ JSON.stringify(arguments) +'</span></p>'
         }
     </script>
     <!-- <script src="" onload="ravenOnLoad" onreadystatechange="ravenOnLoad"></script> -->
