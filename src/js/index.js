@@ -42,11 +42,16 @@ var load = function(){
                         getElement('.money').innerHTML = (response.amount/100).toFixed(2);
                         getElement('.new-year-but1').style.display = 'block'
                     } else if(response.status==2){
-                        getElement('.remark').innerHTML = '红包已领取'
+                        getElement('.remark').innerHTML = '红包已领取！'
                     } else if(response.status==3){
-                        getElement('.remark').innerHTML = '24小时内未领取，红包已失效请联系商家重新领取'
+                        getElement('.remark').innerHTML = '24小时内未领取，红包已失效请联系商家重新领取！'
                     } else if(response.status==4){
-                        getElement('.remark').innerHTML = '红包领取失败请联系商家重新领取'
+                        if(response.payment){
+                            getElement('.remark').innerHTML = response.payment.remark
+                        }else{
+                            getElement('.remark').innerHTML = '红包领取失败请联系商家重新领取！'
+                        }
+                        
                     }
                 }
             },
