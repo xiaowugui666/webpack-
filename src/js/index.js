@@ -1,3 +1,5 @@
+require('../css/index.css')
+
 var config = require('../config')
 
 var getElement = function(selector){
@@ -10,10 +12,22 @@ var getElements = function(selector){
     return document.querySelectorAll(selector)
 }
 
+var remark = function (content, reason) {
+    var html = content
+    if(reason){
+        html += '<p class="remark-reason"> 原因是：<span>'+ reason +'</span></p>'
+    }
+    getElement('.remark').innerHTML = html
+}
+
+var decodeUriParam = function(value){
+    return value?decodeURI(value): ''
+}
+
 var load = function(){
-    var id = decodeURI(getParam('id'))
+    var id = decodeUriParam(getParam('id'))
     var nick_name = ''
-    var open_id = decodeURI(getParam('open_id'))
+    var open_id = decodeUriParam(getParam('open_id'))
     
     // 红包详情
     if(open_id){
@@ -42,24 +56,31 @@ var load = function(){
                         getElement('.money').innerHTML = (response.amount/100).toFixed(2);
                         getElement('.new-year-but1').style.display = 'block'
                     } else if(response.status==2){
-                        getElement('.remark').innerHTML = '红包已领取'
+                        remark('红包已领取！')
                     } else if(response.status==3){
-                        getElement('.remark').innerHTML = '24小时内未领取，红包已失效请联系商家重新领取'
+                        remark('24小时内未领取，红包已失效请联系商家重新领取！')
                     } else if(response.status==4){
-                        getElement('.remark').innerHTML = '红包领取失败请联系商家重新领取'
+                        if(response.payment){
+                            remark('拆红包失败', response.payment.remark)
+                        }else{
+                            remark('红包领取失败请联系商家重新领取！')
+                        }
+                        
                     }
                 }
             },
             fail:function(xhr){
                 try {
                     var resposne = JSON.parse(xhr.responseText)
-                    getElement('.remark').innerHTML = resposne.meta.message
+                    remark('拆红包失败',  resposne.meta.message)
                 } catch(e) {
-                    getElement('.remark').innerHTML = '领取失败，请联系管理员。 错误码：' + xhr.status
+                    remark('拆红包失败', '错误码：' + xhr.status)
                 }
                 // getElement('.remark').innerHTML = xhr.meta.message
             }
         })
+    } else {
+        remark('拆红包失败', '红包标识不存在或微信标识不存在')
     }
 
     // 拆红包
@@ -87,9 +108,9 @@ var load = function(){
                     getElement( '.new-year-but1').style.display = 'none'
                     try {
                         var resposne = JSON.parse(xhr.responseText)
-                        getElement('.remark').innerHTML = resposne.meta.message
+                        remark('拆红包失败',  resposne.meta.message)
                     } catch(e) {
-                        getElement('.remark').innerHTML = '领取失败，请联系管理员。 错误码：' + xhr.status
+                        remark('拆红包失败', '错误码：'+ xhr.status)
                     }
                 }, 1000, start)
             },
