@@ -15,7 +15,7 @@ var getElements = function(selector){
 var remark = function (content, reason) {
     var html = content
     if(reason){
-        html += '<p class="remark-reason"> 原因是：<span>'+ reason +'</span></p>'
+        html += '<p class="remark-reason"><span>'+ reason +'</span></p>'
     }
     getElement('.remark').innerHTML = html
 }
