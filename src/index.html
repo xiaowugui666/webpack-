@@ -28,7 +28,7 @@
         // document.head.appendChild(script);
 
         window.onerror = function(){
-            document.getElementById('remark').innerHTML = '拆红包失败' + '<p class="remark-reason"> 原因是：<span>'+ JSON.stringify(arguments) +'</span></p>'
+            document.getElementById('remark').innerHTML = '拆红包失败' + '<p class="remark-reason"><span>'+ JSON.stringify(arguments) +'</span></p>'
         }
     </script>
     <!-- <script src="" onload="ravenOnLoad" onreadystatechange="ravenOnLoad"></script> -->
